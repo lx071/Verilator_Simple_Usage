@@ -1,10 +1,10 @@
-TOPLEVEL = top
+TOPLEVEL = dut
 
-vsrc = top.v
-csrc = sim_main.cpp
+vsrc = dut.sv
+csrc = indep_clk.cpp
 
 objdir = obj_dir
-# cflags_extra = -fopenmp
+cflags_extra = -fopenmp
 CXXFLAGS = -O3 -Wall -std=c++17 -no-pie
 VERILATOR_ROOT ?= $(shell verilator -getenv VERILATOR_ROOT)
 INCLUDE_FLAGS = -I./${objdir} -I${VERILATOR_ROOT}/include/
@@ -20,6 +20,7 @@ ${objdir}/V${TOPLEVEL}__ALL.a ${objdir}/V${TOPLEVEL}.h:
 
 V${TOPLEVEL}: ${objdir}/V${TOPLEVEL}__ALL.a ${objdir}/V${TOPLEVEL}.h $(VERILATOR_ROOT)/include/verilated.cpp $(VERILATOR_ROOT)/include/verilated_vcd_c.cpp $(VERILATOR_ROOT)/include/verilated_threads.cpp
 	$(CXX) ${cflags_extra} ${csrc} ${INCLUDE_FLAGS} ${LDFLAGS} $^ -o V${TOPLEVEL}
+# clang++ ${cflags_extra} ${csrc} ${INCLUDE_FLAGS} ${LDFLAGS} $^
 
 .PHONY: run
 run:
@@ -27,4 +28,4 @@ run:
 
 .PHONY: clean
 clean:
-	-rm -rf ${objdir} V${TOPLEVEL}
+	-rm -rf ${objdir} V${TOPLEVEL} *.out
