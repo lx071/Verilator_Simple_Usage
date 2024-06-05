@@ -1,10 +1,20 @@
-all: compile run
+TOPLEVEL = top
 
-compile:
-	verilator -cc --exe --build -j top.v sim_main.cpp
+vsrc = top.v
+csrc = sim_main.cpp
 
+objdir = obj_dir
+
+.PHONY: all
+all: V$(TOPLEVEL)
+
+V${TOPLEVEL}:
+	verilator -cc --exe --build -j $(vsrc) $(csrc)
+
+.PHONY: run
 run:
-	./obj_dir/Vtop
+	./$(objdir)/V$(TOPLEVEL)
 
+.PHONY: clean
 clean:
-	-rm -rf obj_dir
+	-rm -rf $(objdir)
