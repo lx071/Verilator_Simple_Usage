@@ -1,14 +1,16 @@
 verilator -cc top.v  
-    generate *.h, *.cpp, *.mk  
+> generate *.h, *.cpp, *.mk
+
 verilator -cc --build top.v  
-    generate *.h, *.cpp, *.mk  
-    generate Vtop__ALL.cpp, Vtop__ALL.o, Vtop__ALL.a  
+> generate *.h, *.cpp, *.mk  
+> generate Vtop__ALL.cpp, Vtop__ALL.o, Vtop__ALL.a  
 
 verilator --cc --exe top.v sim_main.cpp  
-    generate *.h, *.cpp, *.mk  
+> generate *.h, *.cpp, *.mk
+
 verilator --cc --exe --build top.v sim_main.cpp  
-    generate *.h, *.cpp, *.mk  
-    generate sim_main.o, verilated.o, verilated_threads.o, Vtop__ALL.cpp, Vtop__ALL.o, Vtop__ALL.a, Vtop  
+> generate *.h, *.cpp, *.mk  
+> generate sim_main.o, verilated.o, verilated_threads.o, Vtop__ALL.cpp, Vtop__ALL.o, Vtop__ALL.a, Vtop  
 
 
 
